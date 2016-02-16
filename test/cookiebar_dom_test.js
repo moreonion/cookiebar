@@ -54,6 +54,47 @@ describe('Cookiebar', function () {
         });
     });
 
+    describe('visibility state of Cookiebar', function () {
+        beforeEach(function () {
+            // reset jsdom's document every test because we do a lot of
+            // appending here, so we want a clean slate every time
+            this.jsdom(); // cleanup
+            this.jsdom = jsdom();
+
+            this.cookiebar = new Cookiebar();
+            this.container = document.createElement('div');
+            this.container.innerHTML = '<div id="container"></div>';
+        });
+
+        it('is `` when not in DOM', function () {
+            this.cookiebar.bindTo(this.container);
+            var state = this.cookiebar.state();
+            assert.equal('', state);
+        });
+
+        it('is `block` when set `visible`', function () {
+            document.body.appendChild(this.container);
+            this.cookiebar.bindTo(this.container);
+            this.cookiebar.state('visible');
+            var state = this.cookiebar.state();
+            assert.equal('block', state);
+        });
+
+        it('is `none` when set `hidden`', function () {
+            document.body.appendChild(this.container);
+            this.cookiebar.bindTo(this.container);
+            this.cookiebar.state('hidden');
+            var state = this.cookiebar.state();
+            assert.equal('none', state);
+        });
+
+        it('throws an Error when not bound', function () {
+            var self = this;
+            assert.throws(function () {
+                self.cookiebar.state('visible');
+            }, Error, 'Cookiebar: Not bound to an element.');
+        });
+    });
 });
 
 // vim: set et ts=4 sw=4 :

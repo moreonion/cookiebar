@@ -85,4 +85,42 @@ Cookiebar.prototype.bindTo = function (el, doc) {
     }
 };
 
+/**
+ * Set the (visibility) state of the cookiebar.
+ *
+ * <code>state</code> can be <code>undefined</code>/<code>null</code>,
+ * <code>visible</code> or <code>hidden</code>.
+ * When state is <code>undefined</code>/<code>null</code> the current state is
+ * returned.
+ *
+ * Returns the current state.
+ *
+ * @method
+ * @param {string} [state] - the state to set
+ * @returns {string}
+ */
+Cookiebar.prototype.state = function (state) {
+    if (typeof state === 'string') {
+        if (!(this.el instanceof HTMLElement)) {
+            throw new Error('Cookiebar: Not bound to an element.');
+        }
+
+        if (state === 'visible') {
+            this.el.style.display = 'block';
+        } else if (state === 'hidden') {
+            this.el.style.display = 'none';
+        }
+    }
+
+    return this._getState();
+};
+
+Cookiebar.prototype._getState = function () {
+    if (this.el) {
+        return this.el.style.display;
+    } else {
+        return null;
+    }
+};
+
 // vim: set et ts=4 sw=4 :
