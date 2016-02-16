@@ -1,0 +1,48 @@
+{
+  "name": "mo-cookiebar",
+  "version": "0.0.1",
+  "author": "Alex Berger <alex@more-onion.com>",
+  "license": "MIT",
+  "description": "A cookiebar.",
+  "keywords": [
+    "cookie law",
+    "data protection"
+  ],
+  "main": "dist/cookiebar.js",
+  "files": [
+    "dist/cookiebar.js",
+    "dist/cookiebar.min.js",
+    "src"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/moreonion/cookiebar.git"
+  },
+  "bugs": "https://github.com/moreonion/cookiebar/issues",
+  "homepage": "https://github.com/moreonion/cookiebar",
+  "scripts": {
+    "build-js": "gulp",
+    "build": "npm run build-js",
+    "mocha": "mocha --reporter spec",
+    "test": "istanbul cover _mocha",
+    "lint": "eslint ./src/{,**/}*.js ./test/{,**/}*.js",
+    "doc": "jsdoc -r ./src/ -c ./.jsdoc.conf.json"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "browserify": "^13.0.0",
+    "chai": "^3.5.0",
+    "eslint": "^2.1.0",
+    "gulp": "^3.9.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^1.5.2",
+    "gulp-umd": "^0.2.0",
+    "istanbul": "^0.4.2",
+    "jsdoc": "^3.4.0",
+    "jsdom": "^8.0.2",
+    "jsdom-global": "^1.6.1",
+    "mocha": "^2.4.5",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}
