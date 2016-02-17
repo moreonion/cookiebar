@@ -49,7 +49,9 @@ function Cookiebar(options) {
 
     if (this.settings.el) {
         this.bindTo(this.settings.el);
-        this.text(this.settings.text);
+        if (this.el.textContent === '') {
+            this.text(this.settings.text);
+        }
     }
 }
 

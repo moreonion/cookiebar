@@ -138,6 +138,18 @@ describe('Cookiebar', function () {
             assert.equal('Pre-defined text.', this.container.textContent);
         });
 
+        it('leaves any pre-defined text in the container', function () {
+            var container = document.createElement('div');
+            container.setAttribute('id', 'container');
+            container.innerHTML = 'This is DEFAULT content!';
+            assert.equal('This is DEFAULT content!', container.textContent);
+            var cookiebar = new Cookiebar({
+                el: container
+            });
+            cookiebar.bindTo(container);
+            assert.equal('This is DEFAULT content!', container.textContent);
+        });
+
         it('leaves any pre-defined markup in the container', function () {
             assert.equal('', this.container.textContent);
             this.container.innerHTML = '<i>Pre-defined</i> <span>Markup</span>';
