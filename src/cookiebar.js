@@ -98,16 +98,14 @@ Cookiebar.prototype.bindTo = function (el, doc) {
         this.el = el;
     }
 
-    if (this.settings.setupCloseListener) {
+    if (this.el && this.settings.setupCloseListener) {
         var self = this;
         this.closeListener = function (e) {
             self.settings.closeHandler.call(self, e);
             self.el.removeEventListener('click', self.closeListener, false);
         };
         this.el.addEventListener('click', this.closeListener, false);
-    }
 
-    if (this.el) {
         return true;
     } else {
         return false;
