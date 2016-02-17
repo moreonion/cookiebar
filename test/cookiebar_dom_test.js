@@ -19,7 +19,7 @@ describe('Cookiebar', function () {
         beforeEach(function () {
             this.cookiebar = new Cookiebar();
             this.container = document.createElement('div');
-            this.container.innerHTML = '<div id="container"></div>';
+            this.container.setAttribute('id', 'container');
         });
 
         it('should return `true` if successful', function () {
@@ -63,7 +63,7 @@ describe('Cookiebar', function () {
 
             this.cookiebar = new Cookiebar();
             this.container = document.createElement('div');
-            this.container.innerHTML = '<div id="container"></div>';
+            this.container.setAttribute('id', 'container');
         });
 
         it('is `` when not in DOM', function () {
@@ -96,7 +96,6 @@ describe('Cookiebar', function () {
         });
 
         it('can be initialized hidden with styling', function () {
-            this.container.innerHTML = '<div id="container"></div>';
             this.container.setAttribute('style', 'display: none;');
             document.body.appendChild(this.container);
             this.cookiebar.bindTo(this.container);
@@ -105,7 +104,6 @@ describe('Cookiebar', function () {
         });
 
         it('can be initialized visible with styling', function () {
-            this.container.innerHTML = '<div id="container"></div>';
             this.container.setAttribute('style', 'display: block;');
             document.body.appendChild(this.container);
             this.cookiebar.bindTo(this.container);
