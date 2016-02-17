@@ -94,6 +94,24 @@ describe('Cookiebar', function () {
                 self.cookiebar.state('visible');
             }, Error, 'Cookiebar: Not bound to an element.');
         });
+
+        it('can be initialized hidden with styling', function () {
+            this.container.innerHTML = '<div id="container"></div>';
+            this.container.setAttribute('style', 'display: none;');
+            document.body.appendChild(this.container);
+            this.cookiebar.bindTo(this.container);
+            var state = this.cookiebar.state();
+            assert.equal('none', state);
+        });
+
+        it('can be initialized visible with styling', function () {
+            this.container.innerHTML = '<div id="container"></div>';
+            this.container.setAttribute('style', 'display: block;');
+            document.body.appendChild(this.container);
+            this.cookiebar.bindTo(this.container);
+            var state = this.cookiebar.state();
+            assert.equal('block', state);
+        });
     });
 });
 
