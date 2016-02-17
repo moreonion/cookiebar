@@ -111,6 +111,71 @@ describe('Cookiebar', function () {
             assert.equal('block', state);
         });
     });
+
+    describe('text content of Cookiebar', function () {
+        beforeEach(function () {
+            // reset jsdom's document every test because we do a lot of
+            // appending here, so we want a clean slate every time
+            this.jsdom(); // cleanup
+            this.jsdom = jsdom();
+
+            this.cookiebar = new Cookiebar();
+            this.container = document.createElement('div');
+            this.container.setAttribute('id', 'container');
+        });
+
+        it('throws an Error when not bound', function () {
+            var self = this;
+            assert.throws(function () {
+                self.cookiebar.text('Dummy text');
+            }, Error, 'Cookiebar: Not bound to an element.');
+        });
+
+        it('leaves any pre-defined text in the container', function () {
+            assert.equal('', this.container.textContent);
+            this.container.innerHTML = 'Pre-defined text.';
+            this.cookiebar.bindTo(this.container);
+            assert.equal('Pre-defined text.', this.container.textContent);
+        });
+
+        it('leaves any pre-defined markup in the container', function () {
+            assert.equal('', this.container.textContent);
+            this.container.innerHTML = '<i>Pre-defined</i> <span>Markup</span>';
+            this.cookiebar.bindTo(this.container);
+            assert.equal('Pre-defined Markup', this.container.textContent);
+            assert.equal('<i>Pre-defined</i> <span>Markup</span>', this.container.innerHTML);
+        });
+
+        it('generates default text when container is empty', function () {
+            document.body.appendChild(this.container);
+            this.cookiebar.bindTo(this.container);
+            assert.equal('', this.container.textContent);
+            this.cookiebar.text('Default text');
+            assert.equal('Default text', this.container.textContent);
+            assert.equal('Default text', this.container.innerHTML);
+        });
+
+        it('generates customizable text when container is empty', function () {
+            document.body.appendChild(this.container);
+            assert.equal('', this.container.textContent);
+            var cookiebar = new Cookiebar({
+                el: this.container,
+                text: 'Custom text for the cookiebar'
+            });
+            assert.equal('Custom text for the cookiebar', cookiebar.el.textContent);
+        });
+
+        it('generates customizable markup when container is empty', function () {
+            document.body.appendChild(this.container);
+            assert.equal('', this.container.textContent);
+            var cookiebar = new Cookiebar({
+                el: this.container,
+                text: 'Custom <b>markup</b> for the cookiebar'
+            });
+            assert.equal('Custom markup for the cookiebar', cookiebar.el.textContent);
+            assert.equal('Custom <b>markup</b> for the cookiebar', cookiebar.el.innerHTML);
+        });
+    });
 });
 
 // vim: set et ts=4 sw=4 :

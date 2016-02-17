@@ -27,7 +27,8 @@ function Cookiebar(options) {
      * @inner
      */
     var defaults = {
-        el: null
+        el: null,
+        text: 'Default text'
     };
 
     /**
@@ -48,6 +49,7 @@ function Cookiebar(options) {
 
     if (this.settings.el) {
         this.bindTo(this.settings.el);
+        this.text(this.settings.text);
     }
 }
 
@@ -129,6 +131,47 @@ Cookiebar.prototype._getState = function () {
         return this.el.style.display;
     } else {
         return null;
+    }
+};
+
+/**
+ * Set cookiebar text.
+ *
+ * When text is <code>undefined</code>/<code>null</code> the current text is
+ * returned.
+ *
+ * Returns the current text.
+ *
+ * @method
+ * @param {string} [text] - the text to set
+ * @throws {Error} Will throw an error if not bound to an element.
+ * @returns {string}
+ */
+Cookiebar.prototype.text = function (text) {
+    if (typeof text === 'string') {
+        if (!(this.el instanceof HTMLElement)) {
+            throw new Error('Cookiebar: Not bound to an element.');
+        }
+
+        this.el.innerHTML = text;
+    }
+
+    return this._getText();
+};
+
+/**
+ * Get the text of the container.
+ *
+ * Returns the current text.
+ *
+ * @private
+ * @returns {string}
+ */
+Cookiebar.prototype._getText = function () {
+    if (this.el) {
+        return this.el.textContent;
+    } else {
+        return '';
     }
 };
 
