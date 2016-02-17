@@ -33,7 +33,10 @@ function Cookiebar(options) {
         text: 'Default text',
         setupCloseListener: true,
         closeHandler: this._closeHandler,
-        closeClass: 'close'
+        closeClass: 'close',
+        storage: 'local',
+        storageKey: 'mo-cookiebar.displayed',
+        allowHiding: true
     };
 
     /**
@@ -63,10 +66,37 @@ function Cookiebar(options) {
      */
     this.closeListener = null;
 
+    /**
+     * The state storage to use.
+     *
+     * Can be `localStorage` or `sessionStorage`
+     *
+     * @member {Storage} storage to use
+     * @instance
+     * @memberof module:cookiebar~Cookiebar
+     */
+    this.storage = null;
+
+    if (this.settings.storage === 'local') {
+        this.storage = root['localStorage'];
+    }
+    if (this.settings.storage === 'session') {
+        this.storage = root['sessionStorage'];
+    }
+
     if (this.settings.el) {
         this.bindTo(this.settings.el);
         if (this.el.textContent === '') {
             this.text(this.settings.text);
+        }
+    }
+
+    // set the visibility depending on displayed state
+    if (this.el) {
+        if (this.displayed() && this.settings.allowHiding) {
+            this.state('hidden');
+        } else {
+            this.state('visible');
         }
     }
 }
@@ -212,6 +242,51 @@ Cookiebar.prototype._closeHandler = function (e) {
     var classes = classesString.split(/\s+/);
     if (classes.indexOf(this.settings.closeClass) >= 0) {
         this.state('hidden');
+        this.displayed('1');
+    }
+};
+
+/**
+ * Set cookiebar displayed state.
+ *
+ * <code>state</code> can be truthy or falsey
+ * When state is not given, then the current state is returned.
+ *
+ * Returns whether the cookiebar was displayed or not.
+ *
+ * @method
+ * @param {string} [state] - the state to set
+ * @throws {Error} Will throw an error if not bound to an element.
+ * @returns {boolean}
+ */
+Cookiebar.prototype.displayed = function (state) {
+    if (typeof state === 'undefined') {
+        return this._getDisplayed();
+    }
+
+    if (state == true) { // eslint-disable-line eqeqeq
+        this.storage.setItem(this.settings.storageKey, '1');
+    } else {
+        this.storage.setItem(this.settings.storageKey, '0');
+    }
+
+    return this._getDisplayed();
+};
+
+/**
+ * Get the displayed state.
+ *
+ * Returns whether the cookiebar was displayed or not.
+ *
+ * @private
+ * @returns {boolean}
+ */
+Cookiebar.prototype._getDisplayed = function () {
+    if (this.storage && this.storage['getItem']
+        && this.storage.getItem(this.settings.storageKey) == true) { // eslint-disable-line eqeqeq
+        return true;
+    } else {
+        return false;
     }
 };
 
