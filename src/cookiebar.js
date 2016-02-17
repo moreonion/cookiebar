@@ -28,7 +28,10 @@ function Cookiebar(options) {
      */
     var defaults = {
         el: null,
-        text: 'Default text'
+        text: 'Default text',
+        setupCloseListener: true,
+        closeHandler: this._closeHandler,
+        closeClass: 'close'
     };
 
     /**
@@ -46,6 +49,17 @@ function Cookiebar(options) {
      * @memberof module:cookiebar~Cookiebar
      */
     this.el = null;
+
+    /**
+     * The close listener.
+     *
+     * Remembered to be able to remove it again.
+     *
+     * @member {function|EventListener} closeListener
+     * @instance
+     * @memberof module:cookiebar~Cookiebar
+     */
+    this.closeListener = null;
 
     if (this.settings.el) {
         this.bindTo(this.settings.el);
@@ -80,6 +94,15 @@ Cookiebar.prototype.bindTo = function (el, doc) {
     }
     if (el instanceof HTMLElement) {
         this.el = el;
+    }
+
+    if (this.settings.setupCloseListener) {
+        var self = this;
+        this.closeListener = function (e) {
+            self.settings.closeHandler.call(self, e);
+            self.el.removeEventListener('click', self.closeListener, false);
+        };
+        this.el.addEventListener('click', this.closeListener, false);
     }
 
     if (this.el) {
@@ -174,6 +197,21 @@ Cookiebar.prototype._getText = function () {
         return this.el.textContent;
     } else {
         return '';
+    }
+};
+
+/**
+ * Handle closing of the cookiebar.
+ *
+ * @private
+ */
+Cookiebar.prototype._closeHandler = function (e) {
+    e.preventDefault();
+
+    var classesString = e.originalTarget.className || '';
+    var classes = classesString.split(/\s+/);
+    if (classes.indexOf(this.settings.closeClass) >= 0) {
+        this.state('hidden');
     }
 };
 

@@ -188,6 +188,10 @@ describe('Cookiebar', function () {
             assert.equal('Custom <b>markup</b> for the cookiebar', cookiebar.el.innerHTML);
         });
     });
+
+    describe('closing of cookiebar via "click" events', function () {
+        // TODO
+    });
 });
 
 // vim: set et ts=4 sw=4 :
