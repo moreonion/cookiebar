@@ -10,6 +10,8 @@ module = (typeof module === 'undefined') ? {} : module;
 /** Create a poller */
 module.exports = Cookiebar;
 
+var root = (typeof window === 'undefined') ? {} : window;
+
 /**
  * Creates a Cookiebar instance.
  *
@@ -86,7 +88,7 @@ function Cookiebar(options) {
 Cookiebar.prototype.bindTo = function (el, doc) {
     // default document
     if (typeof doc === 'undefined') {
-        doc = window.document;
+        doc = root['document'];
     }
 
     if (typeof el === 'string') {
