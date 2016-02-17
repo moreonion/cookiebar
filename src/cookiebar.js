@@ -97,6 +97,7 @@ Cookiebar.prototype.bindTo = function (el, doc) {
  *
  * @method
  * @param {string} [state] - the state to set
+ * @throws {Error} Will throw an error if not bound to an element.
  * @returns {string}
  */
 Cookiebar.prototype.state = function (state) {
@@ -115,6 +116,14 @@ Cookiebar.prototype.state = function (state) {
     return this._getState();
 };
 
+/**
+ * Get the (visibility) state of the container.
+ *
+ * Returns the current state.
+ *
+ * @private
+ * @returns {string}
+ */
 Cookiebar.prototype._getState = function () {
     if (this.el) {
         return this.el.style.display;
