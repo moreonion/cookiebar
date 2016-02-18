@@ -10,7 +10,7 @@ module = (typeof module === 'undefined') ? {} : module;
 /** Create a poller */
 module.exports = Cookiebar;
 
-var root = (typeof window === 'undefined') ? {} : window;
+var root = this; // eslint-disable-line consistent-this
 
 /**
  * Creates a Cookiebar instance.

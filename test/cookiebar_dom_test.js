@@ -2,7 +2,9 @@
 
 var chai = require('chai');
 var assert = chai.assert;
-var Cookiebar = require('../src/cookiebar');
+// test the dist/ because we need the UMD header for `window` to
+// correctly resolve
+var Cookiebar = require('../dist/cookiebar');
 
 var jsdom = require('jsdom-global');
 

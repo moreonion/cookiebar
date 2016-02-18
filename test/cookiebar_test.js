@@ -2,7 +2,7 @@
 
 var chai = require('chai');
 var assert = chai.assert;
-var Cookiebar = require('../src/cookiebar');
+var Cookiebar = require('../dist/cookiebar');
 
 describe('Cookiebar', function () {
     describe('constructor', function () {
