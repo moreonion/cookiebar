@@ -54,6 +54,22 @@ describe('Cookiebar', function () {
             var cookiebar = new Cookiebar({ el: el });
             assert.equal(el, cookiebar.el);
         });
+
+        it('does not throw errors when bound to non existing element', function () {
+            var cookiebar = new Cookiebar();
+            assert.doesNotThrow(function () {
+                cookiebar.bindTo('#non-existing');
+            });
+        });
+
+        it('does not throw errors when initialized with non existing element', function () {
+            assert.doesNotThrow(function () {
+                var cookiebar = new Cookiebar({
+                    el: '#non-existing'
+                });
+                return cookiebar;
+            });
+        });
     });
 
     describe('visibility state of Cookiebar', function () {

@@ -86,13 +86,14 @@ function Cookiebar(options) {
 
     if (this.settings.el) {
         this.bindTo(this.settings.el);
-        if (this.el.textContent === '') {
-            this.text(this.settings.text);
-        }
     }
 
     // set the visibility depending on displayed state
     if (this.el) {
+        if (this.el.textContent === '') {
+            this.text(this.settings.text);
+        }
+
         if (this.displayed() && this.settings.allowHiding) {
             this.state('hidden');
         } else {
@@ -121,10 +122,17 @@ Cookiebar.prototype.bindTo = function (el, doc) {
         doc = root['document'];
     }
 
-    if (typeof el === 'string') {
-        this.el = doc.querySelector(el);
+    if (typeof doc['querySelector'] !== 'function') {
+        throw new Error('Cookiebar: the binding context does not seem to be a Document or Element.');
     }
-    if (el instanceof HTMLElement) {
+
+    // ensure that this.el is a HTMLElement or null
+    if (typeof el === 'string') {
+        var queried = doc.querySelector(el);
+        if (queried instanceof HTMLElement) {
+            this.el = doc.querySelector(el);
+        }
+    } else if (el instanceof HTMLElement) {
         this.el = el;
     }
 
