@@ -105,6 +105,9 @@ function Cookiebar(options) {
 /**
  * Bind to an element container.
  *
+ * Only binds to the *first* found element yet. If you want to be specific
+ * about an element, directly give the method a <code>HTMLElement</code>.
+ *
  * Return <code>true</code> if the element was found and bound, returns
  * <code>false</code> in case of errors.
  *
