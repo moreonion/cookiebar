@@ -27,11 +27,20 @@ function baseName (str) {
 /* ======================================================================= */
 
 gulp.task('dist', function() {
+    return gulp.src('dist/cookiebar.js')
+        .pipe(buffer())
+        .pipe(uglify())
+        .pipe(rename({ extname: '.min.js' }))
+        .pipe(gulp.dest('dist'));
+});
+
+gulp.task('browserify', function() {
     var b = browserify({
-        entries: ['./build/cookiebar.js']
+        entries: ['./dist/cookiebar.js']
     });
     return b.bundle()
         .pipe(source('cookiebar.js'))
+        .pipe(rename('cookiebar-browserify.js'))
         .pipe(gulp.dest('dist'))
         .pipe(buffer())
         .pipe(uglify())
@@ -39,7 +48,7 @@ gulp.task('dist', function() {
         .pipe(gulp.dest('dist'));
 });
 
-/* ----------- cookiebar modules ----------------------------------------- */
+/* ----------- cookiebar UMD --------------------------------------------- */
 
 gulp.task('cookiebar', function() {
     return gulp.src('src/cookiebar.js')
@@ -63,7 +72,7 @@ gulp.task('cookiebar', function() {
           }
       }))
       .pipe(rename('cookiebar.js'))
-      .pipe(gulp.dest('build/'))
+      .pipe(gulp.dest('dist/'))
 });
 
 /* ======================================================================= */
