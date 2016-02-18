@@ -238,7 +238,7 @@ Cookiebar.prototype._getText = function () {
 Cookiebar.prototype._closeHandler = function (e) {
     e.preventDefault();
 
-    var classesString = e.originalTarget.className || '';
+    var classesString = e.target.className || '';
     var classes = classesString.split(/\s+/);
     if (classes.indexOf(this.settings.closeClass) >= 0) {
         this.state('hidden');
