@@ -6,6 +6,7 @@ var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
+var concat = require('gulp-concat');
 var umd = require('gulp-umd');
 
 
@@ -28,7 +29,7 @@ function baseName(str) {
 /*            DISTRIBUTE                                                   */
 /* ======================================================================= */
 
-gulp.task('dist', function () {
+gulp.task('dist', [ 'umd' ], function () {
     return gulp.src('dist/cookiebar.js')
         .pipe(buffer())
         .pipe(uglify())
@@ -50,10 +51,16 @@ gulp.task('browserify', function () {
         .pipe(gulp.dest('dist'));
 });
 
+gulp.task('concat', function () {
+    return gulp.src([ './src/polyfills/object/assign.js', './src/polyfills.js', './src/cookiebar.js' ])
+        .pipe(concat('cookiebar.js'))
+        .pipe(gulp.dest('build'));
+});
+
 /* ----------- cookiebar UMD --------------------------------------------- */
 
-gulp.task('cookiebar', function () {
-    return gulp.src('src/cookiebar.js')
+gulp.task('cookiebar', [ 'concat' ], function () {
+    return gulp.src('build/cookiebar.js')
       .pipe(umd({
           exports: function () {
               return 'module.exports';
@@ -82,7 +89,7 @@ gulp.task('cookiebar', function () {
 /* ======================================================================= */
 
 gulp.task('umd', [
-    'cookiebar'
+    'concat', 'cookiebar'
 ]);
 
 gulp.task('default', [ 'umd', 'dist' ]);
