@@ -8,6 +8,64 @@
   }
 }(this, function(Cookiebar) {
 /**
+ * Object.assign() polyfill
+ *
+ * @see https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
+ * @module polyfills/object/assign
+ */
+
+/**
+ * Merges properties from sources into a target object.
+ *
+ * @static
+ */
+function assignPolyfill() {
+    if (typeof Object.assign != 'function') {
+        (function () {
+            Object.assign = function (target) {
+                'use strict';
+                if (target === undefined || target === null) {
+                    throw new TypeError('Cannot convert undefined or null to object');
+                }
+
+                var output = Object(target);
+                for (var index = 1; index < arguments.length; index++) {
+                    var source = arguments[index];
+                    if (source !== undefined && source !== null) {
+                        for (var nextKey in source) {
+                            if (source.hasOwnProperty(nextKey)) {
+                                output[nextKey] = source[nextKey];
+                            }
+                        }
+                    }
+                }
+                return output;
+            };
+        })();
+    }
+}
+
+// vim: set et ts=4 sw=4 :
+
+/**
+ * The Cookiebar bundle.
+ *
+ * This includes the Cookiebar and adds needed polyfills.
+ *
+ * Currently IE9+, Edge, Chrome, Firefox and Safari are supported.
+ *
+ * @module cookiebar
+ * @requires ./polyfills/object/assign
+ */
+
+/* global assignPolyfill */
+
+/** Object.assign() polyfill */
+assignPolyfill();
+
+// vim: set et ts=4 sw=4 :
+
+/**
  * Cookiebar module.
  *
  * @module cookiebar
@@ -19,7 +77,7 @@ module = (typeof module === 'undefined') ? {} : module;
 /** Create a poller */
 module.exports = Cookiebar;
 
-var root = (typeof window === 'undefined') ? {} : window;
+var root = this; // eslint-disable-line consistent-this
 
 /**
  * Creates a Cookiebar instance.
@@ -95,13 +153,14 @@ function Cookiebar(options) {
 
     if (this.settings.el) {
         this.bindTo(this.settings.el);
-        if (this.el.textContent === '') {
-            this.text(this.settings.text);
-        }
     }
 
     // set the visibility depending on displayed state
     if (this.el) {
+        if (this.el.textContent === '') {
+            this.text(this.settings.text);
+        }
+
         if (this.displayed() && this.settings.allowHiding) {
             this.state('hidden');
         } else {
@@ -112,6 +171,9 @@ function Cookiebar(options) {
 
 /**
  * Bind to an element container.
+ *
+ * Only binds to the *first* found element yet. If you want to be specific
+ * about an element, directly give the method a <code>HTMLElement</code>.
  *
  * Return <code>true</code> if the element was found and bound, returns
  * <code>false</code> in case of errors.
@@ -130,10 +192,17 @@ Cookiebar.prototype.bindTo = function (el, doc) {
         doc = root['document'];
     }
 
-    if (typeof el === 'string') {
-        this.el = doc.querySelector(el);
+    if (typeof doc['querySelector'] !== 'function') {
+        throw new Error('Cookiebar: the binding context does not seem to be a Document or Element.');
     }
-    if (el instanceof HTMLElement) {
+
+    // ensure that this.el is a HTMLElement or null
+    if (typeof el === 'string') {
+        var queried = doc.querySelector(el);
+        if (queried instanceof HTMLElement) {
+            this.el = doc.querySelector(el);
+        }
+    } else if (el instanceof HTMLElement) {
         this.el = el;
     }
 
