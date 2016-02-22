@@ -20,6 +20,22 @@ var root = this; // eslint-disable-line consistent-this
  * @param {object} options - the options
  * @param {HTMLElement|string} [options.el] - the DOM Element or an
  *     querySelector representing it
+ * @param {string} [options.text='Default text'] - the default cookie text
+ *     when filling an empty bar
+ * @param {boolean} [options.setupCloseListener=true] - whether to setup
+ *     an close listener (binds to elements with class <code>closeClass</code>
+ * @param {string} [options.closeClass='close'] - the class used to identify
+ *     the elements which the closeListener binds to
+ * @param {function} [options.closeHandler=this._closeHandler] - the function
+ *     which handles the close (see {@linkcode Cookiebar~_closeHandler} for the
+ *     default implementation)
+ * @param {string} [options.storage='local'] - the storage to use, for now
+ *     this could be <code>local</code> for <code>window.localStorage</code> or
+ *     <code>session</code> for <code>window.sessionStorage</code>
+ * @param {string} [options.storageKey='mo-cookiebar.displayed'] - the key used
+ *     in the storage to identify the state value
+ * @param {boolean} [options.allowHiding=true] - whether to hide the cookiebar
+ *     on page load when a browser visits a page for a second time
  * @public
  */
 function Cookiebar(options) {
