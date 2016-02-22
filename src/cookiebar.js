@@ -26,6 +26,8 @@ var root = this; // eslint-disable-line consistent-this
  *     an close listener (binds to elements with class <code>closeClass</code>
  * @param {string} [options.closeClass='close'] - the class used to identify
  *     the elements which the closeListener binds to
+ * @param {string} [options.textSelecter=null] - the selecter used to find the
+ *     wrapper for the warning text/markup
  * @param {function} [options.closeHandler=this._closeHandler] - the function
  *     which handles the close (see {@linkcode Cookiebar~_closeHandler} for the
  *     default implementation)
@@ -50,6 +52,7 @@ function Cookiebar(options) {
         setupCloseListener: true,
         closeHandler: this._closeHandler,
         closeClass: 'close',
+        textSelecter: null,
         storage: 'local',
         storageKey: 'mo-cookiebar.displayed',
         allowHiding: true
@@ -235,7 +238,9 @@ Cookiebar.prototype.text = function (text) {
             throw new Error('Cookiebar: Not bound to an element.');
         }
 
-        this.el.innerHTML = text;
+        var textEl = this._findTextEl();
+
+        textEl.innerHTML = text;
     }
 
     return this._getText();
@@ -250,11 +255,33 @@ Cookiebar.prototype.text = function (text) {
  * @returns {string}
  */
 Cookiebar.prototype._getText = function () {
-    if (this.el) {
-        return this.el.textContent;
+    var textEl = this._findTextEl();
+
+    if (textEl) {
+        return textEl.textContent;
     } else {
         return '';
     }
+};
+
+/**
+ * Find the text element in the cookiebar markup.
+ *
+ * Returns the current text.
+ *
+ * @private
+ * @returns {Element}
+ */
+Cookiebar.prototype._findTextEl = function () {
+    var textEl = this.el;
+
+    if (typeof this.settings.textSelector === 'string') {
+        var el = this.el.querySelector(this.settings.textSelector);
+        if (el) {
+            textEl = el;
+        }
+    }
+    return textEl;
 };
 
 /**

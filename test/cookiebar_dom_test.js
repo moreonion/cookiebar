@@ -207,6 +207,31 @@ describe('Cookiebar', function () {
         });
     });
 
+    describe('preservation of markup in container', function () {
+        it('uses the whole textContent if no `textSelector` is given', function () {
+            var cookiebar = new Cookiebar();
+            var container = document.createElement('div');
+            container.setAttribute('id', 'container');
+            cookiebar.bindTo(container);
+            cookiebar.text('Custom <b>markup</b> for the cookiebar');
+            assert.equal('Custom <b>markup</b> for the cookiebar', cookiebar.el.innerHTML);
+            assert.equal('Custom markup for the cookiebar', cookiebar.text());
+        });
+
+        it('uses only the `textSelector` if given', function () {
+            var cookiebar = new Cookiebar({
+                textSelector: '.text'
+            });
+            var container = document.createElement('div');
+            container.innerHTML = '<div class="outer"><span class="text"></span></div>';
+            container.setAttribute('id', 'container');
+            cookiebar.bindTo(container);
+            cookiebar.text('Custom <b>markup</b> for the cookiebar');
+            assert.equal('<div class="outer"><span class="text">Custom <b>markup</b> for the cookiebar</span></div>', cookiebar.el.innerHTML);
+            assert.equal('Custom markup for the cookiebar', cookiebar.text());
+        });
+    });
+
     describe('closing of cookiebar via "click" events', function () {
         // TODO
     });
