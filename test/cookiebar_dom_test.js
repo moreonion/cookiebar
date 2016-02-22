@@ -216,6 +216,7 @@ describe('Cookiebar', function () {
             cookiebar.text('Custom <b>markup</b> for the cookiebar');
             assert.equal('Custom <b>markup</b> for the cookiebar', cookiebar.el.innerHTML);
             assert.equal('Custom markup for the cookiebar', cookiebar.text());
+            assert.equal('Custom <b>markup</b> for the cookiebar', cookiebar._getTextHTML());
         });
 
         it('uses only the `textSelector` if given', function () {
@@ -229,6 +230,7 @@ describe('Cookiebar', function () {
             cookiebar.text('Custom <b>markup</b> for the cookiebar');
             assert.equal('<div class="outer"><span class="text">Custom <b>markup</b> for the cookiebar</span></div>', cookiebar.el.innerHTML);
             assert.equal('Custom markup for the cookiebar', cookiebar.text());
+            assert.equal('Custom <b>markup</b> for the cookiebar', cookiebar._getTextHTML());
         });
     });
 

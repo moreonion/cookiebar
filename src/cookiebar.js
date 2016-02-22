@@ -265,6 +265,24 @@ Cookiebar.prototype._getText = function () {
 };
 
 /**
+ * Get the HTML of the text of the container.
+ *
+ * Returns the current text HTML.
+ *
+ * @private
+ * @returns {string}
+ */
+Cookiebar.prototype._getTextHTML = function () {
+    var textEl = this._findTextEl();
+
+    if (textEl) {
+        return textEl.innerHTML;
+    } else {
+        return '';
+    }
+};
+
+/**
  * Find the text element in the cookiebar markup.
  *
  * Returns the current text.
