@@ -121,6 +121,8 @@
         
 
         
+        <th>Default</th>
+        
 
         <th class="last">Description</th>
     </tr>
@@ -159,9 +161,335 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">the DOM Element or an
     querySelector representing it</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>text</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    'Default text'
+                
+                </td>
+            
+
+            <td class="description last">the default cookie text
+    when filling an empty bar</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>setupCloseListener</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last">whether to setup
+    an close listener (binds to elements with class <code>closeClass</code></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>closeClass</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    'close'
+                
+                </td>
+            
+
+            <td class="description last">the class used to identify
+    the elements which the closeListener binds to</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>textSelecter</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
+
+            <td class="description last">the selecter used to find the
+    wrapper for the warning text/markup</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>closeHandler</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    this._closeHandler
+                
+                </td>
+            
+
+            <td class="description last">the function
+    which handles the close (see <code>Cookiebar~_closeHandler</code> for the
+    default implementation)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>storage</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    'local'
+                
+                </td>
+            
+
+            <td class="description last">the storage to use, for now
+    this could be <code>local</code> for <code>window.localStorage</code> or
+    <code>session</code> for <code>window.sessionStorage</code></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>storageKey</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    'mo-cookiebar.displayed'
+                
+                </td>
+            
+
+            <td class="description last">the key used
+    in the storage to identify the state value</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>allowHiding</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last">whether to hide the cookiebar
+    on page load when a browser visits a page for a second time</td>
         </tr>
 
     
@@ -209,7 +537,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="cookiebar.js.html">cookiebar.js</a>, <a href="cookiebar.js.html#line25">line 25</a>
+        <a href="cookiebar.js.html">cookiebar.js</a>, <a href="cookiebar.js.html#line43">line 43</a>
     </li></ul></dd>
     
 
@@ -312,7 +640,7 @@ Remembered to be able to remove it again.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="cookiebar.js.html">cookiebar.js</a>, <a href="cookiebar.js.html#line58">line 58</a>
+        <a href="cookiebar.js.html">cookiebar.js</a>, <a href="cookiebar.js.html#line77">line 77</a>
     </li></ul></dd>
     
 
@@ -384,7 +712,7 @@ Remembered to be able to remove it again.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="cookiebar.js.html">cookiebar.js</a>, <a href="cookiebar.js.html#line50">line 50</a>
+        <a href="cookiebar.js.html">cookiebar.js</a>, <a href="cookiebar.js.html#line69">line 69</a>
     </li></ul></dd>
     
 
@@ -456,7 +784,7 @@ Remembered to be able to remove it again.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="cookiebar.js.html">cookiebar.js</a>, <a href="cookiebar.js.html#line42">line 42</a>
+        <a href="cookiebar.js.html">cookiebar.js</a>, <a href="cookiebar.js.html#line61">line 61</a>
     </li></ul></dd>
     
 
@@ -530,7 +858,7 @@ Can be `localStorage` or `sessionStorage`
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="cookiebar.js.html">cookiebar.js</a>, <a href="cookiebar.js.html#line69">line 69</a>
+        <a href="cookiebar.js.html">cookiebar.js</a>, <a href="cookiebar.js.html#line88">line 88</a>
     </li></ul></dd>
     
 
@@ -602,7 +930,7 @@ Can be `localStorage` or `sessionStorage`
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="cookiebar.js.html">cookiebar.js</a>, <a href="cookiebar.js.html#line31">line 31</a>
+        <a href="cookiebar.js.html">cookiebar.js</a>, <a href="cookiebar.js.html#line49">line 49</a>
     </li></ul></dd>
     
 
@@ -680,7 +1008,7 @@ Can be `localStorage` or `sessionStorage`
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="cookiebar.js.html">cookiebar.js</a>, <a href="cookiebar.js.html#line249">line 249</a>
+        <a href="cookiebar.js.html">cookiebar.js</a>, <a href="cookiebar.js.html#line310">line 310</a>
     </li></ul></dd>
     
 
@@ -703,6 +1031,108 @@ Can be `localStorage` or `sessionStorage`
 
 
 
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="_findTextEl"><span class="type-signature">(private) </span>_findTextEl<span class="signature">()</span><span class="type-signature"> &rarr; {Element}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Find the text element in the cookiebar markup.
+
+Returns the current text.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cookiebar.js.html">cookiebar.js</a>, <a href="cookiebar.js.html#line293">line 293</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Element</span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -764,7 +1194,7 @@ Returns whether the cookiebar was displayed or not.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="cookiebar.js.html">cookiebar.js</a>, <a href="cookiebar.js.html#line295">line 295</a>
+        <a href="cookiebar.js.html">cookiebar.js</a>, <a href="cookiebar.js.html#line356">line 356</a>
     </li></ul></dd>
     
 
@@ -866,7 +1296,7 @@ Returns the current state.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="cookiebar.js.html">cookiebar.js</a>, <a href="cookiebar.js.html#line195">line 195</a>
+        <a href="cookiebar.js.html">cookiebar.js</a>, <a href="cookiebar.js.html#line214">line 214</a>
     </li></ul></dd>
     
 
@@ -968,7 +1398,109 @@ Returns the current text.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="cookiebar.js.html">cookiebar.js</a>, <a href="cookiebar.js.html#line236">line 236</a>
+        <a href="cookiebar.js.html">cookiebar.js</a>, <a href="cookiebar.js.html#line257">line 257</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="_getTextHTML"><span class="type-signature">(private) </span>_getTextHTML<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Get the HTML of the text of the container.
+
+Returns the current text HTML.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cookiebar.js.html">cookiebar.js</a>, <a href="cookiebar.js.html#line275">line 275</a>
     </li></ul></dd>
     
 
@@ -1186,7 +1718,7 @@ Return <code>true</code> if the element was found and bound, returns
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="cookiebar.js.html">cookiebar.js</a>, <a href="cookiebar.js.html#line122">line 122</a>
+        <a href="cookiebar.js.html">cookiebar.js</a>, <a href="cookiebar.js.html#line141">line 141</a>
     </li></ul></dd>
     
 
@@ -1359,7 +1891,7 @@ Returns whether the cookiebar was displayed or not.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="cookiebar.js.html">cookiebar.js</a>, <a href="cookiebar.js.html#line273">line 273</a>
+        <a href="cookiebar.js.html">cookiebar.js</a>, <a href="cookiebar.js.html#line334">line 334</a>
     </li></ul></dd>
     
 
@@ -1556,7 +2088,7 @@ Returns the current state.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="cookiebar.js.html">cookiebar.js</a>, <a href="cookiebar.js.html#line171">line 171</a>
+        <a href="cookiebar.js.html">cookiebar.js</a>, <a href="cookiebar.js.html#line190">line 190</a>
     </li></ul></dd>
     
 
@@ -1751,7 +2283,7 @@ Returns the current text.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="cookiebar.js.html">cookiebar.js</a>, <a href="cookiebar.js.html#line216">line 216</a>
+        <a href="cookiebar.js.html">cookiebar.js</a>, <a href="cookiebar.js.html#line235">line 235</a>
     </li></ul></dd>
     
 
@@ -1846,7 +2378,7 @@ Returns the current text.
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Thu Feb 18 2016 15:24:12 GMT+0100 (CET)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Mon Feb 22 2016 17:51:56 GMT+0100 (CET)
 </footer>
 
 <script> prettyPrint(); </script>

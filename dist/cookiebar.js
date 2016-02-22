@@ -87,6 +87,24 @@ var root = this; // eslint-disable-line consistent-this
  * @param {object} options - the options
  * @param {HTMLElement|string} [options.el] - the DOM Element or an
  *     querySelector representing it
+ * @param {string} [options.text='Default text'] - the default cookie text
+ *     when filling an empty bar
+ * @param {boolean} [options.setupCloseListener=true] - whether to setup
+ *     an close listener (binds to elements with class <code>closeClass</code>
+ * @param {string} [options.closeClass='close'] - the class used to identify
+ *     the elements which the closeListener binds to
+ * @param {string} [options.textSelecter=null] - the selecter used to find the
+ *     wrapper for the warning text/markup
+ * @param {function} [options.closeHandler=this._closeHandler] - the function
+ *     which handles the close (see {@linkcode Cookiebar~_closeHandler} for the
+ *     default implementation)
+ * @param {string} [options.storage='local'] - the storage to use, for now
+ *     this could be <code>local</code> for <code>window.localStorage</code> or
+ *     <code>session</code> for <code>window.sessionStorage</code>
+ * @param {string} [options.storageKey='mo-cookiebar.displayed'] - the key used
+ *     in the storage to identify the state value
+ * @param {boolean} [options.allowHiding=true] - whether to hide the cookiebar
+ *     on page load when a browser visits a page for a second time
  * @public
  */
 function Cookiebar(options) {
@@ -101,6 +119,7 @@ function Cookiebar(options) {
         setupCloseListener: true,
         closeHandler: this._closeHandler,
         closeClass: 'close',
+        textSelecter: null,
         storage: 'local',
         storageKey: 'mo-cookiebar.displayed',
         allowHiding: true
@@ -286,7 +305,9 @@ Cookiebar.prototype.text = function (text) {
             throw new Error('Cookiebar: Not bound to an element.');
         }
 
-        this.el.innerHTML = text;
+        var textEl = this._findTextEl();
+
+        textEl.innerHTML = text;
     }
 
     return this._getText();
@@ -301,11 +322,51 @@ Cookiebar.prototype.text = function (text) {
  * @returns {string}
  */
 Cookiebar.prototype._getText = function () {
-    if (this.el) {
-        return this.el.textContent;
+    var textEl = this._findTextEl();
+
+    if (textEl) {
+        return textEl.textContent;
     } else {
         return '';
     }
+};
+
+/**
+ * Get the HTML of the text of the container.
+ *
+ * Returns the current text HTML.
+ *
+ * @private
+ * @returns {string}
+ */
+Cookiebar.prototype._getTextHTML = function () {
+    var textEl = this._findTextEl();
+
+    if (textEl) {
+        return textEl.innerHTML;
+    } else {
+        return '';
+    }
+};
+
+/**
+ * Find the text element in the cookiebar markup.
+ *
+ * Returns the current text.
+ *
+ * @private
+ * @returns {Element}
+ */
+Cookiebar.prototype._findTextEl = function () {
+    var textEl = this.el;
+
+    if (typeof this.settings.textSelector === 'string') {
+        var el = this.el.querySelector(this.settings.textSelector);
+        if (el) {
+            textEl = el;
+        }
+    }
+    return textEl;
 };
 
 /**
