@@ -4,12 +4,6 @@
  * @module cookiebar
  */
 
-/* global module:true */
-
-module = (typeof module === 'undefined') ? {} : module;
-/** Create a poller */
-module.exports = Cookiebar;
-
 var root = this; // eslint-disable-line consistent-this
 
 /**
@@ -40,7 +34,7 @@ var root = this; // eslint-disable-line consistent-this
  *     on page load when a browser visits a page for a second time
  * @public
  */
-function Cookiebar(options) {
+export function Cookiebar(options) {
     /**
      * The default settings.
      * @var {object}

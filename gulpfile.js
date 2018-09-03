@@ -8,7 +8,7 @@ var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var concat = require('gulp-concat');
 var umd = require('gulp-umd');
-
+var babel = require('gulp-babel');
 
 
 /**
@@ -51,10 +51,10 @@ gulp.task('browserify', function () {
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('concat', function () {
-    return gulp.src([ './src/polyfills/object/assign.js', './src/polyfills.js', './src/cookiebar.js' ])
-        .pipe(concat('cookiebar.js'))
-        .pipe(gulp.dest('build'));
+gulp.task('babel', function () {
+    return gulp.src(['./src/cookiebar.js' ])
+        .pipe(babel())
+        .pipe(gulp.dest('build/commonjs'));
 });
 
 /* ----------- cookiebar UMD --------------------------------------------- */

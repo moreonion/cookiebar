@@ -30,10 +30,13 @@
   },
   "dependencies": {},
   "devDependencies": {
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.5.2",
+    "babel-plugin-transform-object-assign": "^6.5.0",
     "browserify": "^13.0.0",
     "chai": "^3.5.0",
     "eslint": "^2.1.0",
     "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
     "gulp-concat": "^2.6.0",
     "gulp-rename": "^1.2.2",
     "gulp-uglify": "^1.5.2",
